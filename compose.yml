@@ -1,0 +1,18 @@
+version: '3.9'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: charger_consumer
+    environment:
+      - RABBITMQ_HOST=amqp://localhost:5672/
+    restart: on-failure
+    depends_on:
+      - cashe
+  cashe:
+    image: redis:7.2.4-alpine
+    restart: always
+    container_name: redis
+    ports:
+      - "6379:6379"
