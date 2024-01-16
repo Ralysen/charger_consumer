@@ -40,8 +40,9 @@ class RabbitMQConnection {
                 if (!msg) {
                   return console.error(`Invalid incoming message`);
                 }
+                
                 handleIncomingNotification(msg?.content?.toString());
-                //redisConnection.publish(msg);
+                
                 this.channel.ack(msg);
               }
             },
