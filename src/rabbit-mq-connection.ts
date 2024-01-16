@@ -1,6 +1,5 @@
 import client, { Channel, Connection } from "amqplib";
 import * as dotenv from 'dotenv';
-import redisConnection from './redis-connection'
 type HandlerCB = (msg: string) => any;
 
 dotenv.config()
@@ -17,7 +16,7 @@ class RabbitMQConnection {
             console.log('Connection to RabbitMQ');
 
             this.connection = await client.connect(
-                process.env.RABBITMQ_HOST || 'amqp://localhost:5672/'
+                `amqp://${process.env.CLOUDAMQP_HOST}:${process.env.CLOUDAMQP_PORT}` || 'amqp://localhost:5672/'
             );
 
             console.log('RabbitMQ connection is ready');
@@ -40,7 +39,7 @@ class RabbitMQConnection {
                 if (!msg) {
                   return console.error(`Invalid incoming message`);
                 }
-                
+
                 handleIncomingNotification(msg?.content?.toString());
                 
                 this.channel.ack(msg);

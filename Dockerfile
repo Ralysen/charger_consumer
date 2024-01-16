@@ -27,4 +27,4 @@ USER node
 
 COPY --from=build /usr/src/app/dist ./dist
 
-CMD ["dumb-init", "node", "dist/main"]
+CMD ["dumb-init", "node", "dist/index"]

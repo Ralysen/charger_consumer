@@ -6,7 +6,7 @@ dotenv.config()
 
 
 class RedisConnection {
-    redisClient = new IORedis(process.env.REDIS_URL || 'redis://localhost:6379/');
+    redisClient = new IORedis(`redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT}` || 'redis://localhost:6379/');
 
     async publish(key: string, value: string) {
         await this.redisClient.set(key, value);
