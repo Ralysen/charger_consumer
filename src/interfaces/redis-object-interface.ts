@@ -7,3 +7,4 @@ export class AnyObject {
     connector?: Connector;
     stationType?: StationType;
   }
+  

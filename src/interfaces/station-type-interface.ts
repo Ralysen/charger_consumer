@@ -7,3 +7,4 @@ export class StationType {
       public firmware_version?: string
     ) {}
   }
+  

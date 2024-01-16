@@ -7,3 +7,4 @@ export class ChargingStationType {
       public current_type?: string
     ) {}
   }
+  

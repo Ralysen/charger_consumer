@@ -5,3 +5,4 @@ export class Connector {
       public priority?: boolean
     ) {}
   }
+  

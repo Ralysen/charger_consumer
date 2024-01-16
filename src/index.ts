@@ -34,10 +34,8 @@ const handleIncomingNotification = (msg: string) => {
       await mqConnection.connect();
 
       await mqConnection.consume(handleIncomingNotification);
-      
-      // await redisConnection.getByKey('caba5870-b96a-4b12-8622-6e30773a1887').then(res => {
-      //   console.log(res)
-      // })
+    
     };
   
   listen();
+  
