@@ -1,5 +1,8 @@
 import client, { Channel, Connection } from "amqplib";
 import * as dotenv from 'dotenv';
+
+import redisConnection from "../redis/redis-connection";
+import getIdFromObject from "../Object-handling/object-handling.get-id-from-object";
 type HandlerCB = (msg: string) => any;
 
 dotenv.config()
@@ -31,17 +34,28 @@ class RabbitMQConnection {
         }
     }
 
-    async consume(handleIncomingNotification: HandlerCB) {
-        await this.channel.assertQueue('test', { durable: true });
-
-        this.channel.consume('test', (msg) => {
+    consume(handleIncomingNotification: HandlerCB) {
+        let prevRes: Object;
+        this.channel.assertQueue('test', { durable: true });
+        this.channel.consume('test', async (msg) => {
             {
                 if (!msg) {
-                  return console.error(`Invalid incoming message`);
+                    return console.error(`Invalid incoming message`);
                 }
-
-                handleIncomingNotification(msg?.content?.toString());
                 
+                const result = handleIncomingNotification(msg.content.toString());
+    
+                console.log('Received message from RabbitMQ.');
+
+                const id = getIdFromObject.getId(result);
+                
+                const res = await redisConnection.getByKey(JSON.stringify(id));
+
+                console.log(`Previous: `, res)
+
+                await redisConnection.publish(JSON.stringify(id), JSON.stringify(result));
+
+                console.log(`New: `, result);
                 this.channel.ack(msg);
               }
             },

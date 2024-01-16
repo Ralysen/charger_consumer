@@ -23,7 +23,7 @@ services:
       - "8001:8001"
     healthcheck:
       test: ["CMD", "redis-cli","ping"]
-      interval: 5s
+      interval: 3s
       timeout: 4s
       retries: 3
       

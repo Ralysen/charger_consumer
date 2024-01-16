@@ -1,4 +1,4 @@
-import IORedis, { Result, Callback } from "ioredis";
+import IORedis from "ioredis";
 import * as dotenv from 'dotenv';
 
 
@@ -8,19 +8,14 @@ dotenv.config()
 class RedisConnection {
     redisClient = new IORedis(`redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT}` || 'redis://localhost:6379/');
 
-    async publish(key: string, value: string) {
+     async publish(key: string, value: string) {
         await this.redisClient.set(key, value);
     }
 
     async getByKey (key: string) {
-        return new Promise(resolve => {
-            this.redisClient.get(key).then(res => {
-                if(!res) {
-                    return null;
-                }
-                resolve(JSON.parse(res));
-            })
-        })
+
+        return await this.redisClient.get(key);
+        
     }
 }
 
