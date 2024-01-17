@@ -1,9 +1,9 @@
 import mqConnection from './rabbit-mq.connection';
-import casheData from '../cache-updated-data';
+import cacheData from '../cache-updated-data';
 
 class RabbitMqConsumer {
-  consume() {
-    mqConnection.channel.assertQueue('test', { durable: true });
+  consume(queueName: string) {
+    mqConnection.channel.assertQueue(queueName, { durable: true });
     mqConnection.channel.consume(
       'test',
       async (msg) => {
@@ -16,7 +16,7 @@ class RabbitMqConsumer {
 
           console.log('Received message from RabbitMQ.');
 
-          casheData.setCacheData(result);
+          cacheData.setCacheData(result);
 
           mqConnection.channel.ack(msg);
         }

@@ -1,4 +1,4 @@
-import { AnyObject } from 'redis-object-interface';
+import { AnyObject } from './object-classes/class.any-object';
 import getIdFromObject from './Object-handling/object-handling.get-id-from-object';
 import redisMethods from './redis/redis.methods';
 
@@ -25,5 +25,5 @@ class CacheData {
   }
 }
 
-const casheData = new CacheData();
-export default casheData;
+const cacheData = new CacheData();
+export default cacheData;

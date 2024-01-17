@@ -1,12 +1,12 @@
-import { AnyObject } from 'redis-object-interface';
+import { AnyObject } from '../object-classes/class.any-object';
 
 class GetIdFromObject {
   getId(obj: AnyObject): string | undefined {
-    if (obj.updatedStation && obj.updatedStation.id) {
+    if (obj.updatedStation?.id) {
       return obj.updatedStation.id;
-    } else if (obj.connector && obj.connector.id) {
+    } else if (obj.connector?.id) {
       return obj.connector.id;
-    } else if (obj.stationType && obj.stationType.id) {
+    } else if (obj.stationType?.id) {
       return obj.stationType.id;
     }
     return undefined;

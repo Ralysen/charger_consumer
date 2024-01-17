@@ -12,9 +12,9 @@ services:
       - REDIS_PORT=6379
     restart: on-failure
     depends_on:
-      cashe:
+      cache:
         condition: service_healthy
-  cashe:
+  cache:
     image: redis/redis-stack:latest
     restart: always
     container_name: redis

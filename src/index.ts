@@ -7,7 +7,7 @@ dotenv.config();
 const listen = async () => {
   await mqConnection.connect();
 
-  mqConsumer.consume();
+  mqConsumer.consume('test');
 };
 
 listen();
