@@ -9,7 +9,6 @@ dotenv.config()
       await mqConnection.connect();
 
       mqConsumer.consume();
-    
     };
   
   listen();
