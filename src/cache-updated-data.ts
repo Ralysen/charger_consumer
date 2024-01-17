@@ -1,13 +1,14 @@
+import { AnyObject } from 'redis-object-interface';
 import getIdFromObject from './Object-handling/object-handling.get-id-from-object';
 import redisMethods from './redis/redis.methods';
 
 class CacheData {
-  async setCacheData(value: any) {
+  async setCacheData(value: AnyObject) {
     try {
       console.log('Entry message to redis.');
       const id = getIdFromObject.getId(value);
 
-      const previousObject: any = await redisMethods.getByKey(
+      const previousObject = await redisMethods.getByKey(
         JSON.stringify(id),
       );
 
