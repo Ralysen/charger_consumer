@@ -1,5 +1,5 @@
 export class StationType {
-    constructor(
+    constructor (
       public id?: string,
       public name?: string,
       public device_id?: string,

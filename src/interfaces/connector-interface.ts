@@ -1,5 +1,5 @@
 export class Connector {
-    constructor(
+    constructor (
       public id?: string,
       public name?: string,
       public priority?: boolean

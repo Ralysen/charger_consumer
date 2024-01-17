@@ -1,5 +1,5 @@
 export class ChargingStationType {
-    constructor(
+    constructor (
       public id?: string,
       public name?: string,
       public plug_count?: number,
