@@ -8,9 +8,7 @@ class CacheData {
       console.log('Entry message to redis.');
       const id = getIdFromObject.getId(value);
 
-      const previousObject = await redisMethods.getByKey(
-        JSON.stringify(id),
-      );
+      const previousObject = await redisMethods.getByKey(JSON.stringify(id));
 
       if (previousObject) {
         console.log(`Previous: `, JSON.parse(previousObject));
