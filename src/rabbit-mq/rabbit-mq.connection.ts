@@ -1,35 +1,36 @@
-import client, { Channel, Connection } from "amqplib";
+import client, { Channel, Connection } from 'amqplib';
 import * as dotenv from 'dotenv';
 
-dotenv.config()
+dotenv.config();
 
 class RabbitMQConnection {
-    connection!: Connection;
-    channel!: Channel;
-    private connected!: Boolean;
+  connection!: Connection;
+  channel!: Channel;
+  private connected!: boolean;
 
-    async connect() {
-        if(this.connected && this.channel) return;
+  async connect() {
+    if (this.connected && this.channel) return;
 
-        try {
-            console.log('Connection to RabbitMQ');
+    try {
+      console.log('Connection to RabbitMQ');
 
-            this.connection = await client.connect(
-                `amqp://${process.env.CLOUDAMQP_HOST}:${process.env.CLOUDAMQP_PORT}` || 'amqp://localhost:5672/'
-            );
+      this.connection = await client.connect(
+        `amqp://${process.env.CLOUDAMQP_HOST}:${process.env.CLOUDAMQP_PORT}` ||
+          'amqp://localhost:5672/',
+      );
 
-            console.log('RabbitMQ connection is ready');
+      console.log('RabbitMQ connection is ready');
 
-            this.channel = await this.connection.createChannel();
+      this.channel = await this.connection.createChannel();
 
-            console.log('Created channel successfully');
+      console.log('Created channel successfully');
 
-            this.connected = true;
-        } catch (error) {
-            console.log(error);
-        }
+      this.connected = true;
+    } catch (error) {
+      console.log(error);
     }
+  }
 }
 
 const mqConnection = new RabbitMQConnection();
-export default mqConnection
+export default mqConnection;

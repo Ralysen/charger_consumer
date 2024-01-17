@@ -1,30 +1,31 @@
-import mqConnection from "./rabbit-mq.connection";
-import casheData from "../cache-updated-data";
+import mqConnection from './rabbit-mq.connection';
+import casheData from '../cache-updated-data';
 
 class RabbitMqConsumer {
-    
-    consume() {
-        mqConnection.channel.assertQueue('test', { durable: true });
-        mqConnection.channel.consume('test', async (msg) => {
-            {
-                if (!msg) {
-                    return console.error(`Invalid incoming message`);
-                }
-            
-                const result = JSON.parse(msg.content.toString());
+  consume() {
+    mqConnection.channel.assertQueue('test', { durable: true });
+    mqConnection.channel.consume(
+      'test',
+      async (msg) => {
+        {
+          if (!msg) {
+            return console.error(`Invalid incoming message`);
+          }
 
-                console.log('Received message from RabbitMQ.');
+          const result = JSON.parse(msg.content.toString());
 
-                casheData.setCacheData(result);
+          console.log('Received message from RabbitMQ.');
 
-                mqConnection.channel.ack(msg);
-              }
-            },
-            {
-              noAck: false,
-            }
-        )
-    }
+          casheData.setCacheData(result);
+
+          mqConnection.channel.ack(msg);
+        }
+      },
+      {
+        noAck: false,
+      },
+    );
+  }
 }
 
 const mqConsumer = new RabbitMqConsumer();
