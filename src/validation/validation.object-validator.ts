@@ -1,44 +1,31 @@
 import { z } from 'zod';
 
-class ObjectValidator {
-  validate(inputObjectType: string, inputObjectBody: object) {
-    switch (inputObjectType) {
-      case 'charging_station': {
-        const dataValidator = z.object({
-          id: z.string().uuid(),
-          name: z.string(),
-          device_id: z.string().uuid(),
-          ip_address: z.string().ip({ version: 'v4' }),
-          firmware_version: z.string(),
-        });
+const ChargingStationForm = 
+    z.object({
+        id: z.string().uuid(),
+        name: z.string(),
+        device_id: z.string().uuid(),
+        ip_address: z.string().ip({ version: 'v4' }),
+        firmware_version: z.string(),
+    });
 
-        return dataValidator.parse(inputObjectBody);
-      }
-      case 'connector': {
-        const dataValidator = z.object({
-          id: z.string().uuid(),
-          name: z.string(),
-          priority: z.boolean(),
-        });
+const ConnectorForm = 
+    z.object({
+        id: z.string().uuid(),
+        name: z.string(),
+        priority: z.boolean(),
+    });
 
-        return dataValidator.parse(inputObjectBody);
-      }
-      case 'station_type': {
-        const dataValidator = z.object({
-          id: z.string().uuid(),
-          name: z.string(),
-          plug_count: z.number(),
-          efficiency: z.number(),
-        });
+const StationTypeForm = 
+    z.object({
+        id: z.string().uuid(),
+        name: z.string(),
+        plug_count: z.number(),
+        efficiency: z.number(),
+    });
 
-        return dataValidator.parse(inputObjectBody);
-      }
-      default: {
-        return null;
-      }
-    }
-  }
-}
-
-const objectValidator = new ObjectValidator();
-export default objectValidator;
+export const payLoadValidator = z.discriminatedUnion("type", [
+    z.object({ type: z.literal('charging_station'), body: ChargingStationForm }),
+    z.object({ type: z.literal('connector'), body: ConnectorForm }),
+    z.object({ type: z.literal('station_type'), body: StationTypeForm }),
+]);
