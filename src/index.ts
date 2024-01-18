@@ -7,7 +7,7 @@ dotenv.config();
 const listen = async () => {
   await mqConnection.connect();
 
-  mqConsumer.consume('test');
+  mqConsumer.consume(process.env.RABBIT_MQ_QUEUE || 'test');
 };
 
 listen();
