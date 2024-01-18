@@ -19,7 +19,7 @@ class CacheData {
         JSON.stringify(objectBody.body),
       );
 
-      console.log(`New: `, value);
+      console.log(`New: `, objectBody.body);
     } catch (error) {
       console.error(error);
     }
