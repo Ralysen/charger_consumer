@@ -21,7 +21,10 @@ class CacheData {
         console.log(`Previous: `, JSON.parse(previousObject));
       }
 
-      await redisMethods.publish(objectBody.body.id, JSON.stringify(objectBody));
+      await redisMethods.publish(
+        objectBody.body.id,
+        JSON.stringify(objectBody),
+      );
 
       console.log(`New: `, value);
     } catch (error) {
