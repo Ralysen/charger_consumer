@@ -1,5 +1,5 @@
 import redisMethods from './redis/redis.methods';
-import { PayLoadType } from './schemas/schemas.object-forms';
+import { PayLoadType } from './dto/dto.object-types';
 
 class CacheData {
   async logPreviousObject(value: PayLoadType) {
