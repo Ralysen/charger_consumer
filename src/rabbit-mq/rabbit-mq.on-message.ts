@@ -11,11 +11,11 @@ export const onMessage = async (msg: ConsumeMessage | null) => {
 
     const result = payLoadValidator.parse(JSON.parse(msg.content.toString()));
 
-    cacheData.logPreviousObject(result);
+    await cacheData.logPreviousObject(result);
 
     console.log('Received message from RabbitMQ.');
 
-    cacheData.setCacheData(result);
+    await cacheData.setCacheData(result);
 
     mqConnection.channel.ack(msg);
   }
