@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-const ChargingStationForm = z.object({
+export const ChargingStationForm = z.object({
   id: z.string().uuid(),
   name: z.string(),
   device_id: z.string().uuid(),
@@ -8,13 +8,13 @@ const ChargingStationForm = z.object({
   firmware_version: z.string(),
 });
 
-const ConnectorForm = z.object({
+export const ConnectorForm = z.object({
   id: z.string().uuid(),
   name: z.string(),
   priority: z.boolean(),
 });
 
-const StationTypeForm = z.object({
+export const StationTypeForm = z.object({
   id: z.string().uuid(),
   name: z.string(),
   plug_count: z.number(),

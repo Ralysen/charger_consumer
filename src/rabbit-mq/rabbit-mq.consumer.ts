@@ -10,14 +10,15 @@ class RabbitMqConsumer {
     mqConnection.channel.consume(
       process.env.RABBIT_MQ_QUEUE || 'test',
       async (msg) => {
-        if (!msg) throw new Error(`Invalid incoming message`);
-
         try {
+          if (!msg) throw new Error(`Invalid incoming message`);
           await onMessage(msg);
-          await mqConnection.channel.ack(msg);
+          mqConnection.channel.ack(msg);
         } catch (error) {
-          await mqConnection.channel.nack(msg);
-          throw new Error(`Internal error: ${error}`);
+          if (msg) {
+            mqConnection.channel.nack(msg);
+          }
+          console.error(error);
         }
       },
       {
