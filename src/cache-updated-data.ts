@@ -2,12 +2,10 @@ import redisMethods from './redis/redis.methods';
 
 class CacheData {
   async logPreviousObject(value: any) {
-    const objectBody = value;
-
-    const previousObject = await redisMethods.getByKey(objectBody.body.id);
+    const previousObject = await redisMethods.getByKey(value.body.id);
 
     if (previousObject) {
-      console.log(`Previous: `, JSON.parse(previousObject));
+      return JSON.parse(previousObject);
     }
   }
 
@@ -17,9 +15,9 @@ class CacheData {
 
       await redisMethods.publish(value.body.id, JSON.stringify(value.body));
 
-      console.log(`New: `, value.body);
+      return value.body;
     } catch (error) {
-      throw new Error(`error: ${error}`);
+      throw new Error(`Internal server error: ${error}`);
     }
   }
 }
