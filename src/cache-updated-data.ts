@@ -1,4 +1,3 @@
-import mqConsumer from './rabbit-mq/rabbit-mq.consumer';
 import redisMethods from './redis/redis.methods';
 
 class CacheData {
@@ -6,7 +5,7 @@ class CacheData {
     try {
       console.log('Entry message to redis.');
 
-      const objectBody = mqConsumer.payLoadValidator.parse(value);
+      const objectBody = value;
 
       const previousObject = await redisMethods.getByKey(objectBody.body.id);
 
