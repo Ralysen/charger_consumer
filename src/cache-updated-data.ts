@@ -1,15 +1,5 @@
 import redisMethods from './redis/redis.methods';
-import {
-  ChargingStationForm,
-  ConnectorForm,
-  StationTypeForm,
-} from './validation/validation.object-validator';
-import { z } from 'zod';
-
-type PayLoadType =
-  | z.infer<typeof ChargingStationForm>
-  | z.infer<typeof ConnectorForm>
-  | z.infer<typeof StationTypeForm>;
+import { PayLoadType } from './schemas/schemas.object-forms';
 
 class CacheData {
   async logPreviousObject(value: PayLoadType) {

@@ -1,5 +1,5 @@
 import { ConsumeMessage } from 'amqplib';
-import { payLoadValidator } from '../validation/validation.object-validator';
+import { payLoadValidator } from '../schemas/schemas.object-forms';
 import cacheData from '../cache-updated-data';
 
 export const onMessage = async (msg: ConsumeMessage) => {

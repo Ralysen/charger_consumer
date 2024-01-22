@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const ChargingStationForm = z.object({
+const ChargingStationForm = z.object({
   id: z.string().uuid(),
   name: z.string(),
   device_id: z.string().uuid(),
@@ -8,13 +8,13 @@ export const ChargingStationForm = z.object({
   firmware_version: z.string(),
 });
 
-export const ConnectorForm = z.object({
+const ConnectorForm = z.object({
   id: z.string().uuid(),
   name: z.string(),
   priority: z.boolean(),
 });
 
-export const StationTypeForm = z.object({
+const StationTypeForm = z.object({
   id: z.string().uuid(),
   name: z.string(),
   plug_count: z.number(),
@@ -26,3 +26,8 @@ export const payLoadValidator = z.discriminatedUnion('type', [
   z.object({ type: z.literal('connector'), body: ConnectorForm }),
   z.object({ type: z.literal('station_type'), body: StationTypeForm }),
 ]);
+
+export type PayLoadType =
+  | z.infer<typeof ChargingStationForm>
+  | z.infer<typeof ConnectorForm>
+  | z.infer<typeof StationTypeForm>;
