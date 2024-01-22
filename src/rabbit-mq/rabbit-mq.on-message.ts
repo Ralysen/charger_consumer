@@ -1,12 +1,12 @@
 import { ConsumeMessage } from 'amqplib';
 import cacheData from '../cache-updated-data';
-import { payLoadValidator } from '../dto/dto.message';
+import { payLoadValidator } from '../dto/message.dto';
 
 export const onMessage = async (msg: ConsumeMessage) => {
   {
     const result = payLoadValidator.parse(JSON.parse(msg.content.toString()));
 
-    const previousObject = await cacheData.logPreviousObject(result.body);
+    const previousObject = await cacheData.previousObject(result.body.id);
 
     console.log('Received message from RabbitMQ.');
 

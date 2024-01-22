@@ -1,13 +1,14 @@
 import redisMethods from './redis/redis.methods';
-import { PayLoadType } from './dto/dto.object-types';
+import { PayLoadType } from './dto/object-types.dto';
 
 class CacheData {
-  async logPreviousObject(value: PayLoadType) {
-    const previousObject = await redisMethods.getByKey(value.id);
+  async previousObject(value: string) {
+    let previousObject = await redisMethods.getByKey(value);
 
-    if (previousObject) {
-      return JSON.parse(previousObject);
+    if (!previousObject) {
+      return null;
     }
+    return JSON.parse(previousObject) as PayLoadType;
   }
 
   async setCacheData(value: PayLoadType) {

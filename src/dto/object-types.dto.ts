@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { ChargingStationForm } from './dto.charging-station';
-import { ConnectorForm } from './dto.connector';
-import { StationTypeForm } from './dto.station-type';
+import { ChargingStationForm } from './charging-station.dto';
+import { ConnectorForm } from './connector.dto';
+import { StationTypeForm } from './station-type.dto';
 
 export type ChargingStation = z.infer<typeof ChargingStationForm>;
 
