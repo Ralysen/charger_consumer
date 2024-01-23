@@ -29,7 +29,7 @@ class RabbitMqConsumer {
     );
   }
 
-  onMessage = async (msg: ConsumeMessage) => {
+  async onMessage(msg: ConsumeMessage) {
     {
       const result = payLoadUnion.parse(JSON.parse(msg.content.toString()));
       const previousObject = await cacheData.getPreviousObject(result.body.id);
@@ -41,7 +41,7 @@ class RabbitMqConsumer {
         current: newObject,
       });
     }
-  };
+  }
 }
 
 const mqConsumer = new RabbitMqConsumer();
