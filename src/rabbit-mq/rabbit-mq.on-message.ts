@@ -12,17 +12,10 @@ export const onMessage = async (msg: ConsumeMessage) => {
 
     const newObject = await cacheData.setCacheData(result.body);
 
-    if (!previousObject) {
-      console.log({
-        type: result.type,
-        current: newObject,
-      });
-    } else {
-      console.log({
-        type: result.type,
-        previous: previousObject,
-        current: newObject,
-      });
-    }
+    console.log({
+      type: result.type,
+      previous: previousObject,
+      current: newObject,
+    });
   }
 };
