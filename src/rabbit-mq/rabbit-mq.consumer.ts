@@ -1,5 +1,5 @@
 import { ConsumeMessage } from 'amqplib';
-import { payLoadUnion } from '../dto/message-union.dto';
+import { payLoadUnion } from '../dto/payload-union.dto';
 import mqConnection from './rabbit-mq.connection';
 import cacheData from '../redis/redis.methods';
 import * as dotenv from 'dotenv';
