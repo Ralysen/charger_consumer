@@ -1,6 +1,7 @@
 import mqConnection from './rabbit-mq/rabbit-mq.connection';
 import * as dotenv from 'dotenv';
 import mqConsumer from './rabbit-mq/rabbit-mq.consumer';
+import 'reflect-metadata';
 
 dotenv.config();
 

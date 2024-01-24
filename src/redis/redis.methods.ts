@@ -5,6 +5,8 @@ import { PayLoadType } from '../dto/object-types.dto';
 dotenv.config();
 
 class RedisMethods {
+  ioRedis: IORedis;
+
   redisClient = new IORedis(
     `redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT}` ||
       'redis://localhost:6379/',
@@ -42,3 +44,4 @@ class RedisMethods {
 
 const redisMethods = new RedisMethods();
 export default redisMethods;
+// export default RedisMethods;
