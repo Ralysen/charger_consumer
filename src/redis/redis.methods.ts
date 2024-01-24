@@ -4,7 +4,7 @@ import { PayLoadType } from '../dto/object-types.dto';
 
 dotenv.config();
 
-class RedisMethods {
+export class RedisMethods {
   ioRedis: IORedis;
 
   redisClient = new IORedis(
@@ -41,7 +41,3 @@ class RedisMethods {
     }
   }
 }
-
-const redisMethods = new RedisMethods();
-export default redisMethods;
-// export default RedisMethods;

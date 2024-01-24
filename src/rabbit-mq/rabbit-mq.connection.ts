@@ -3,7 +3,7 @@ import * as dotenv from 'dotenv';
 
 dotenv.config();
 
-class RabbitMQConnection {
+export class RabbitMQConnection {
   connection!: Connection;
   channel!: Channel;
   private connected!: boolean;
@@ -31,6 +31,3 @@ class RabbitMQConnection {
     }
   }
 }
-
-const mqConnection = new RabbitMQConnection();
-export default mqConnection;
