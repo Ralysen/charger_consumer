@@ -57,14 +57,13 @@ describe('RabbitMqConsumer tests', () => {
   describe('onMessage method test', () => {
     it('Should complete onMessage successfully', async () => {
       //Arrange
-      console.log = jest.fn();
       JSON.parse = jest.fn().mockImplementation((callback) => {
         callback;
       });
       payLoadUnion.parse = jest
         .fn()
         .mockReturnValue({ type: 'station_type', body: stationType });
-
+      
       //Act
       await rabbitMqConsumer.onMessage(
         stationType as unknown as ConsumeMessage,
