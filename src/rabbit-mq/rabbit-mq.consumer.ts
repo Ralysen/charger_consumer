@@ -39,7 +39,7 @@ export class RabbitMqConsumer {
 
   async onMessage(msg: ConsumeMessage) {
     {
-      const result = payLoadUnion.parse(JSON.parse(msg.content.toString()));
+      const result = payLoadUnion.parse(JSON.parse(msg.content?.toString()));
       const previousObject = await this.redisMethods.getPreviousObject(
         result.body.id,
       );

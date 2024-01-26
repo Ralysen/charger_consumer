@@ -5,23 +5,14 @@ import { PayLoadType } from '../dto/object-types.dto';
 dotenv.config();
 
 export class RedisMethods {
-  ioRedis: IORedis;
+  private redisClient: IORedis;
 
-  redisClient = new IORedis(
-    `redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT}` ||
-      'redis://localhost:6379/',
-  );
-
-  async publish(key: string, value: string) {
-    await this.redisClient.set(key, value);
-  }
-
-  async getByKey(key: string) {
-    return await this.redisClient.get(key);
+  constructor(ioRedis: IORedis) {
+    this.redisClient = ioRedis;
   }
 
   async getPreviousObject(value: string) {
-    const previousObject = await this.getByKey(value);
+    const previousObject = await this.redisClient.get(value);
 
     if (previousObject) {
       return JSON.parse(previousObject) as PayLoadType;
@@ -33,7 +24,7 @@ export class RedisMethods {
     try {
       console.log('Entry message to redis.');
 
-      await this.publish(value.id, JSON.stringify(value));
+      this.redisClient.set(value.id, JSON.stringify(value));
 
       return value;
     } catch (error) {
