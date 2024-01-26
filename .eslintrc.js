@@ -15,7 +15,7 @@ module.exports = {
     node: true,
     jest: true,
   },
-  ignorePatterns: ['.eslintrc.js', 'jest.config.ts'],
+  ignorePatterns: ['.eslintrc.js', 'jest.config.ts', '*spec.ts'],
   rules: {
     'no-return-await': 'off',
     "@typescript-eslint/return-await": ["error", "always"],
