@@ -1,0 +1,29 @@
+version: '3.9'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: charger_consumer
+    environment:
+      - CLOUDAMQP_HOST=host.docker.internal
+      - CLOUDAMQP_PORT=5672
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    restart: on-failure
+    depends_on:
+      cache:
+        condition: service_healthy
+  cache:
+    image: redis/redis-stack:latest
+    restart: always
+    container_name: redis
+    ports:
+      - "6379:6379"
+      - "8001:8001"
+    healthcheck:
+      test: ["CMD", "redis-cli","ping"]
+      interval: 3s
+      timeout: 4s
+      retries: 3
+      
